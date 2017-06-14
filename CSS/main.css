@@ -1,0 +1,51 @@
+.mobile {
+    display: none;
+}
+html {
+    height:100%;
+    font-family: 'Comfortaa', cursive;
+    font-size: 30px;
+}
+/*
+-----------------555555555555555555555
+
+ВРЕМЕННО
+
+-*-*-*-*-*-*-*-**/
+ankiCards, notes, tips {
+    display:none;
+}
+/*
+-----------------555555555555555555555
+
+ВРЕМЕННО
+
+-*-*-*-*-*-*-*-**/
+body {
+    height: 100%;
+    background: #eee;
+}
+.desktop {
+    height: 100%;
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.menu, .wrapper {
+    height: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.menu {
+    padding-top: 10%;
+    padding-right:2%;
+}
+.menu li {
+    padding: 5% 0;
+    padding-right:10%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
