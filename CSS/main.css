@@ -23,6 +23,8 @@ ankiCards, notes, tips {
 -*-*-*-*-*-*-*-**/
 body {
     height: 100%;
+    min-height:800px;
+    min-width:900px;
     background: #eee;
 }
 .desktop {
@@ -40,7 +42,7 @@ body {
     box-sizing: border-box;
 }
 .menu {
-    padding-top: 10%;
+    padding-top: 100px;
     padding-right:2%;
 }
 .menu li {
