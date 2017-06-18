@@ -1,0 +1,218 @@
+.mobile {
+    display: none;
+}
+html {
+    height:100%;
+    font-family: 'Comfortaa', cursive;
+    font-size: 30px;
+}
+body {
+    height: 100%;
+    background: #eee;
+    min-height:400px;
+    min-width:800px;
+}
+.desktop {
+    height: 100%;
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: relative;
+}
+.modal {
+    display: none;
+    width: 100%;
+    height:100%;
+    position: absolute;
+    background: rgba(0,0,0,.3);
+    z-index: 3;
+}
+.popap {
+/*    overflow: scroll;*/
+    padding: 2%;
+    font-size: 35px;
+    position: absolute;
+    width: 35%;
+    height: 35%;
+    background: #fff;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    cursor: default;
+    border: 1px solid rgba(0,0,0,.5);
+    border-radius: 3px;
+    z-index: 4;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.popap {
+    -webkit-transform: perspective(500px) rotateY(0deg);
+    transform: perspective(500px) rotateY(0deg);
+    -webkit-transition: all 1s;
+    transition: all 1s;
+}
+.flip {
+    -webkit-transform: perspective(500px) rotateY(-360deg);
+    transform: perspective(500px) rotateY(-360deg);
+    -webkit-transition: all 1s;
+    transition: all 1s;
+}
+.menu, .wrapper {
+    height: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.menu {
+    padding-top: 100px;
+}
+.menu li {
+    padding: 10% 0;
+    padding-right:40%;
+    padding-left: 3%; 
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+}
+.menu span {
+    position: relative;
+    z-index: 2;
+}
+.menu div {
+    position: absolute;
+    top:50%;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 0;
+}
+.active div {
+    height: 100%;
+    top:0;
+}
+.first {background: #23efc6;}
+.second {background: #ce48e9;}
+.third {background: #f2d36d;}
+.fourth {background: #e18383;}
+.wrapper {
+    padding: 2%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 100%;
+    position: relative;
+}
+.container {
+    overflow: scroll;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 2%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    z-index: 2;
+}
+.back {
+    background: #fff;
+    position: absolute;
+    left:2%;
+    top:2%;
+    width: 96%;
+    height: 96%;
+    z-index: 0;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); 
+}
+
+/*                    ГЛАВНАЯ            */
+
+.ui-datepicker-title {
+background: #23efc6;/*цвет фона названия месяца*/
+}
+.calendar {
+    font-size: 20px;
+    width: 45%;
+}
+.doing {
+    width:40%;
+}
+/*                    ГЛАВНАЯ            */
+
+/*                    КАРТОЧИ                     */
+.ankiCards {
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+}
+.deck {
+/*    overflow: scroll;*/
+    color:#000;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 15px;
+    width: 20%;
+    min-width:135px;
+    position: relative;
+    z-index: 1;
+    height: 30%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: distribute;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); 
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: all 0.7s;
+    transition: all 0.7s;
+}
+.deck p , div {
+    width: 100%;
+}
+.deck p {
+    margin-top: 20%;
+    background: #ce48e9;
+    padding-top:0.5%; 
+}
+.deck p:hover {
+    cursor: pointer;
+}
+.deck div div {
+    margin-bottom: 5%;
+}
+.deck span:hover {
+    cursor: pointer;
+    color: #ce48e9;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.deck:hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    -webkit-transition: all 0.7s;
+    transition: all 0.7s;
+}
+/*                    КАРТОЧИ                     */

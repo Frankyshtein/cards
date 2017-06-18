@@ -1,17 +1,39 @@
-$("li").on('click',function(){
-    if($(this).hasClass("active")){return 0;}
-    $(".active div").animate({height:0,top:50+"%"},200);
-    $(".active").removeClass("active");
-    $(this).children("div").animate({height:100+"%",top:0},300);
-    $(this).addClass("active");
-})
-$(".second").on('click',function(){
-    $(".wrapper .main").addClass("out");
-})
-$(".first").on('click',function(){
-    $(".wrapper .main").removeClass("out");
-    $(".wrapper .main").addClass("in");
-})
+var cards = [], doings = [], tips = [], metka;
+cards = [['HTML теги',['div','Элемент div является универсальным блочным элементом и предназначен для группирования элементов документа с целью изменения вида содержимого через стили. Для этого добавляется атрибут class или id с именем класса или идентификатора. Как и при использовании других блочных элементов, содержимое div всегда начинается с новой строки, после него также добавляется перенос строки.',1],['html','Элемент html является контейнером, который заключает в себе всё содержимое веб-страницы, включая элементы <head> и <body>. Открывающий и закрывающий теги <html> в документе не обязательны, но хороший стиль диктует непременное их использование. Как правило, <html> идёт в документе вторым, после определения типа документа (Document Type Definition, DTD), устанавливаемого через <!DOCTYPE>. Закрывающий тег <html> всегда стоит в документе последним. Синтаксис <html>...</html>',1],['head','Элемент <head> предназначен для хранения других элементов, цель которых — помочь браузеру в работе с данными. Также внутри контейнера <head> находятся метатеги, которые используются для хранения информации предназначенной для браузеров и поисковых систем. Например, механизмы поисковых систем обращаются к метатегам для получения описания сайта, ключевых слов и других данных. Содержимое <head> не отображается напрямую на веб-странице, за исключением элемента <title>, он задаёт заголовок окна веб-страницы. Синтаксис <head>...</head>',1],['body','Элемент <body> предназначен для хранения содержимого веб-страницы (контента), отображаемого в окне браузера. Информацию, которую следует выводить в документе, следует располагать именно внутри контейнера <body>. К такой информации относится текст, изображения, теги, скрипты JavaScript и т. д. Синтаксис <body>...</body>',1],['link','Устанавливает связь с внешним документом вроде файла со стилями или со шрифтами. Элемент <link> обычно размещается внутри контейнера <head> и не создаёт ссылку, в отличие от элемента <a>. Cинтаксис <link href="<адрес>">',1],['p','Определяет текстовый абзац. Элемент <p> является блочным, всегда начинается с новой строки, абзацы текста идущие друг за другом разделяются между собой отбивкой. Величиной отбивки можно управлять с помощью стилей. Если закрывающего тега нет, считается, что конец абзаца совпадает с началом следующего абзаца или другого блочного элемента. Cинтаксис <p>Текст</p>',1],['ul','Элемент <ul> устанавливает маркированный (неупорядоченный) список. Каждый пункт списка должен начинаться с элемента <li>. Cинтаксис \n <ul> \n  <li>пункт маркированного списка</li> \n </ul>',1],['ol','Элемент <ol> устанавливает нумерованный (упорядоченный) список. Каждый элемент списка должен начинаться с <li>. Если к <ol> применяется таблица стилей, то элементы <li> наследуют эти свойства. Cинтаксис <ol> \n  <li>элемент нумерованного списка</li> \n  <li>элемент нумерованного списка</li> \n </ol>',1],['li','Элемент <li> определяет отдельный пункт списка. Внешний элемент <ul> или <ol> устанавливает тип списка — маркированный или нумерованный. Cитаксис <ul> \n  <li>элемент маркированного списка</li> \n </ul> \n<ol> \n  <li>элемент нумерованного списка</li> \n </ol>',1]],['CSS селекторы',[],[]]];
+
+function cardStart(c) {
+    for(i = 0;i < cards.length;i++) {
+        if ($.inArray(c,cards[i]) != -1) {
+            metka = cards[i];
+            var d = metka[1];
+            $(".popap").html("<p>"+d[0]+"</p>");
+        }
+    }
+}
+function addCustomScroll(z) {
+    $(z).customScroll({
+        prefix: 'custom-scroll_',
+        /* vertical */
+        barMinHeight: 10,
+        offsetTop: 0,
+        offsetBottom: 0,
+        /* will be added to offsetBottom in case of horizontal scroll */
+        trackWidth: 10,
+        /* horizontal */
+        barMinWidth: 10,
+        offsetLeft: 0,
+        offsetRight: 0,
+        /* will be added to offsetRight in case of vertical scroll */
+        trackHeight: 10,
+        /* each bar will have custom-scroll_bar-x or y class */
+        barHtml: '<div />',
+        /* both vertical or horizontal bar can be disabled */
+        vertical: true,
+        horizontal: false
+    });
+}
+
+
 $(".wrapper .calendar").datepicker({
  monthNames: ['Январь', 'Февраль', 'Март', 'Апрель',
 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь',
@@ -19,3 +41,64 @@ $(".wrapper .calendar").datepicker({
  dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
  firstDay: 1,
 });
+$(".ankiCards, .notes, .tips").css("display", "none");
+$("li").on('click',function(){
+    var a, b;
+    if($(this).hasClass("active")){return 0;}
+    $(".active div").animate({height:0,top:50+"%"},200);
+    a = $(".active").index();
+    b = $(this).index();
+    $(".active").removeClass("active");
+    $(this).children("div").animate({height:100+"%",top:0},300);
+    $(this).addClass("active");
+    $(".wrapper > div").eq(a).not(".back").fadeOut(400, function() {
+        $(".wrapper > div").eq(b).not(".back").fadeIn(400);
+    })          
+})
+$(".deck").on('click', function() {
+    $(".modal").fadeIn();
+    var c = $(this).children("p").text();
+    cardStart(c);
+})
+$(".modal").on('click', function(e) {
+    var target = $(e.target);
+    if(target.hasClass('modal') && !target.parents().hasClass('modal')){
+        $(".modal").fadeOut();
+  }
+})
+$(".popap").on('click',function() {
+    $(this).addClass("flip").bind("transitionend webkitTransitionEnd msTransitionEnd oTransitionEnd",function() {
+        $(".popap p").fadeOut(200,function(){
+            var d = metka[1];
+            $(".popap").css("overflow","scroll");
+            $(".popap").html("<p>"+d[1]+"</p>");
+            
+            addCustomScroll(".popap");
+        });
+        
+    });
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
