@@ -208,3 +208,14 @@ body {
 textarea {
     margin-bottom: 15px;
 }
+.plus {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+.plus img {
+    height: 50%;
+}
+.plus img:hover {
+    cursor: pointer;
+}
