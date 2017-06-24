@@ -84,6 +84,9 @@ body {
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
 }
+.popap p {
+    margin-bottom: 20px;
+}
 .flip {
     -webkit-transform: perspective(500px) rotateY(-360deg);
     transform: perspective(500px) rotateY(-360deg);
@@ -207,6 +210,12 @@ body {
 }
 textarea {
     margin-bottom: 15px;
+}
+.noData {
+    -webkit-box-shadow: 0 0 8px 2px #e05656;
+    box-shadow: 0 0 8px 2px #e05656;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
 }
 .plus {
     -webkit-box-pack: center;

@@ -21,11 +21,15 @@ function buildDecks() {
     for(i=0; i < cards.length; i++) {
         $(".container").append("<div class='deck'><p>"+cards[i][0]+"</p><div><div><span class='edit'>Редактировать</span>                        </div><div><span class='delete'>Удалить</span></div></div></div>");
     }
+    currentDate = new Date();
     $(".container").append("<div class='deck plus'><img src='img/plus.png' alt=''></div>");
+    $(".deck p").on('click', function() {
+        $(".modal").fadeIn();
+        var c = $(this).text();
+        cardStart(c);
+    })
+    init();
 }
-
-
-
 function dateSet() {
     for(i = 0; i < cards.length; i++) {
         var a = cards[i];
@@ -38,7 +42,12 @@ function dateSet() {
     }
 }
 function cardStart(c) {
+    debugger;
     for(i = 0;i < cards.length;i++) {
+        console.log(cards.length)
+        console.log(i);
+        console.log(cards[i]);
+        console.log(c);
         if ($.inArray(c,cards[i]) != -1) {
             metka[0] = i;
             currentArray = cards[i];
@@ -48,8 +57,10 @@ function cardStart(c) {
     }
 }
 function nextCard() {
-    for(i =0;i < currentArray.length; i++){
+    for(i = 0; i < currentArray.length; i++){
+        console.log(i);
         var a = currentArray[i];
+//        console.log(a);
         metka[1] = i;
         if(a[2] <= currentDate) {
             bufer[0] = a[0];
@@ -73,29 +84,35 @@ function nextOne() {
         $(".popap").removeClass("flip");
     })
 }
-$(".deck p").on('click', function() {
-    $(".modal").fadeIn();
-    var c = $(this).text();
-    cardStart(c);
-})
-$(".deck .edit").on('click', function() {
-    $(".modal").fadeIn();
-    var c = $(this).parents(".deck").children("p").text();
-    cardStart(c);
-    saveEdit();
-})
-
-$(".modal").on('click', function(e) {
-    var target = $(e.target);
-    if(target.hasClass('modal') && !target.parents().hasClass('modal')){
-        $(".modal").fadeOut();
-        $(".popap").removeClass("flip");
-        z=0;
-        $(".popap").on('click',clickPopap);
-  }
-})
-$(".popap").on('click',clickPopap);
-
+function saveNew() {
+        if($(".popap p").text() == "Введите название колоды"){
+           var a = $("textarea").val();
+            if(a == '' || a == ' '){a="Без названия"}
+            cards.push([a]);
+            localStorage.setItem('cards',JSON.stringify(cards));
+            $(".popap").children().fadeOut(400);
+            $(".popap").html("<p>Лицевая сторона</p><textarea rows='8' cols='28'></textarea><p>Обратная сторона</p><textarea rows='8' cols='28'></textarea><div class='new save'>Сохранить</div>");
+            $(".popap").children().css("display","none").fadeIn();
+            $(".container").children().fadeOut();
+            buildDecks();
+            $(".popap").off();
+            $(".new").on('click', saveNew);
+        }else{
+            var a = $("textarea").eq(0).val(); b = $("textarea").eq(0).val();
+            if(a == '' || a == ' '){
+                $(".new").on('click', saveNew);
+                return;
+            }
+            $(".popap textarea").addClass("noData");
+            cards[cards.length-1].push([a,b,new Date()]);
+            $(".popap").children().fadeOut(400);
+            $(".popap").html("<p>Лицевая сторона</p><textarea rows='8' cols='28'></textarea><p>Обратная сторона</p><textarea rows='8' cols='28'></textarea><div class='new save'>Сохранить</div>");
+            $(".popap").children().css("display","none").fadeIn();
+            $(".new").on('click', saveNew);
+        }
+        
+        
+    }
 function clickPopap() {
     if($(this).hasClass("flip")){return}
     $(this).addClass("flip");
@@ -116,9 +133,6 @@ function clickPopap() {
         });
     });
 };
-
-
-
 function saveEdit() {
         $(".popap").html("<ul></ul>");
         $(".popap ul").append("<li class='needEdit'>"+currentArray[0]+"</li>");
@@ -127,7 +141,6 @@ function saveEdit() {
         }
         $(".popap").off();
         $(".popap .needEdit").on('click', function() {
-        if($(".popap").hasClass("flip")){return}
             $(".popap").addClass("flip");
             var a = $(this).index();
             var g = currentArray[a][0]; h = currentArray[a][1];
@@ -156,3 +169,39 @@ function saveEdit() {
         }) 
     })
 }
+function init(){
+        $(".deck p").on('click', function() {
+            $(".modal").fadeIn();
+            var c = $(this).text();
+            cardStart(c);
+        })
+        $(".deck .edit").on('click', function() {
+            $(".modal").fadeIn();
+            var c = $(this).parents(".deck").children("p").text();
+            cardStart(c);
+            saveEdit();
+        })
+        $(".deck img").on('click',function(){
+            $(".modal").fadeIn();
+            $(".popap").html("<p>Введите название колоды</p><textarea rows='8' cols='28'></textarea><div class='new save'>Сохранить</div>");
+            $(".popap").off();
+            $(".new").on('click',saveNew)
+        })
+        $(".modal").on('click', function(e) {
+            var target = $(e.target);
+            if(target.hasClass('modal') && !target.parents().hasClass('modal')){
+                $(".modal").fadeOut();
+                $(".popap").removeClass("flip");
+                z=0;
+                $(".popap").on('click',clickPopap);
+                $(".deck img").on('click',function(){
+                    $(".modal").fadeIn();
+                    $(".popap").html("<p>Введите название колоды</p><textarea rows='8' cols='28'></textarea><div class='new save'>Сохранить</div>");
+                    $(".new").on('click',saveNew)
+                })
+                currentDate = new Date();
+                $(".popap").on('click', clickPopap);
+            }
+        })
+        $(".popap").on('click', clickPopap);                      
+};
