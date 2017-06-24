@@ -23,11 +23,11 @@ function buildDecks() {
     }
     currentDate = new Date();
     $(".container").append("<div class='deck plus'><img src='img/plus.png' alt=''></div>");
-    $(".deck p").on('click', function() {
-        $(".modal").fadeIn();
-        var c = $(this).text();
-        cardStart(c);
-    })
+//    $(".deck p").on('click', function() {
+//        $(".modal").fadeIn();
+//        var c = $(this).text();
+//        cardStart(c);
+//    })
     init();
 }
 function dateSet() {
@@ -42,26 +42,25 @@ function dateSet() {
     }
 }
 function cardStart(c) {
-    debugger;
     for(i = 0;i < cards.length;i++) {
-        console.log(cards.length)
-        console.log(i);
-        console.log(cards[i]);
-        console.log(c);
         if ($.inArray(c,cards[i]) != -1) {
+            console.log(i);
             metka[0] = i;
+            console.log(i);
             currentArray = cards[i];
+            console.log(i);
             nextCard();
+            console.log(i);
             $(".popap").html("<div>" + bufer[0] + "</div>");
         }
+        console.log(i);
+        if(i == cards.length - 1){i = i +1;console.log(i);}
     }
 }
 function nextCard() {
-    for(i = 0; i < currentArray.length; i++){
-        console.log(i);
-        var a = currentArray[i];
-//        console.log(a);
-        metka[1] = i;
+    for(j = 0; j < currentArray.length; j++){
+        var a = currentArray[j];
+        metka[1] = j;
         if(a[2] <= currentDate) {
             bufer[0] = a[0];
             bufer[1] = a[1];
@@ -181,6 +180,7 @@ function init(){
             cardStart(c);
             saveEdit();
         })
+        $(".deck .delete").on('click', function())
         $(".deck img").on('click',function(){
             $(".modal").fadeIn();
             $(".popap").html("<p>Введите название колоды</p><textarea rows='8' cols='28'></textarea><div class='new save'>Сохранить</div>");
