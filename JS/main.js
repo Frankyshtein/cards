@@ -44,17 +44,11 @@ function dateSet() {
 function cardStart(c) {
     for(i = 0;i < cards.length;i++) {
         if ($.inArray(c,cards[i]) != -1) {
-            console.log(i);
             metka[0] = i;
-            console.log(i);
             currentArray = cards[i];
-            console.log(i);
             nextCard();
-            console.log(i);
             $(".popap").html("<div>" + bufer[0] + "</div>");
         }
-        console.log(i);
-        if(i == cards.length - 1){i = i +1;console.log(i);}
     }
 }
 function nextCard() {
@@ -180,7 +174,20 @@ function init(){
             cardStart(c);
             saveEdit();
         })
-        $(".deck .delete").on('click', function())
+        $(".deck .delete").on('click', function() {
+            console.log(1);
+            var c = $(this).parents(".deck").children("p").text();
+            for(i = 0;i < cards.length;i++) {
+                if ($.inArray(c,cards[i]) != -1) {
+                    cards.splice(i,1);
+                    localStorage.setItem('cards',JSON.stringify(cards));
+                    $(".container").customScroll('destroy');
+                    $(".container").children().remove();
+                    buildDecks();
+                    $(".container").customScroll({horizontal: false});
+                }
+            }
+        })
         $(".deck img").on('click',function(){
             $(".modal").fadeIn();
             $(".popap").html("<p>Введите название колоды</p><textarea rows='8' cols='28'></textarea><div class='new save'>Сохранить</div>");
