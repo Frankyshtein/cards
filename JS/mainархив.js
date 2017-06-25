@@ -14,25 +14,21 @@ if(localStorage.getItem('cards') == null) {
     }
     currentDate = new Date();
 }
-$(".container").customScroll({horizontal: false});
 buildDecks();
-
+$(".container").customScroll({horizontal: false});
 
 function buildDecks() {
     for(i=0; i < cards.length; i++) {
-        $(".ankiCards .custom-scroll_inner").append("<div class='deck'><p>"+cards[i][0]+"</p><div><div><span class='edit'>Редактировать</span>                        </div><div><span class='delete'>Удалить</span></div></div></div>");
+        $(".container").append("<div class='deck'><p>"+cards[i][0]+"</p><div><div><span class='edit'>Редактировать</span>                        </div><div><span class='delete'>Удалить</span></div></div></div>");
     }
     currentDate = new Date();
-    $(".ankiCards .custom-scroll_inner").append("<div class='deck plus'><img src='img/plus.png' alt=''></div>");
+    $(".container").append("<div class='deck plus'><img src='img/plus.png' alt=''></div>");
 //    $(".deck p").on('click', function() {
 //        $(".modal").fadeIn();
 //        var c = $(this).text();
 //        cardStart(c);
 //    })
-//    debugger;
-//    $(".ankiCards .custom-scroll_inner").customScroll({horizontal: false});
     init();
-    
 }
 function dateSet() {
     for(i = 0; i < cards.length; i++) {
@@ -90,7 +86,7 @@ function saveNew() {
             $(".popap").children().fadeOut(400);
             $(".popap").html("<p>Лицевая сторона</p><textarea rows='8' cols='28'></textarea><p>Обратная сторона</p><textarea rows='8' cols='28'></textarea><div class='new save'>Сохранить</div>");
             $(".popap").children().css("display","none").fadeIn();
-            $(".custom-scroll_inner").children().remove();
+            $(".container").children().fadeOut();
             buildDecks();
             $(".popap").off();
             $(".new").on('click', saveNew);
@@ -100,16 +96,27 @@ function saveNew() {
                 $(".new").on('click', saveNew);
                 return;
             }
-            $(".popap textarea").addClass("noData");
+//            $(".popap textarea").addClass("noData");
             cards[cards.length-1].push([a,b,new Date()]);
             $(".popap").children().fadeOut(400);
             $(".popap").html("<p>Лицевая сторона</p><textarea rows='8' cols='28'></textarea><p>Обратная сторона</p><textarea rows='8' cols='28'></textarea><div class='new save'>Сохранить</div>");
             $(".popap").children().css("display","none").fadeIn();
             $(".new").on('click', saveNew);
-        }
-        
-        
+        }  
     }
+function add() {
+    $(".popap").children().fadeOut(400);
+    $(".popap").html("<p>Лицевая сторона</p><textarea rows='8' cols='28'></textarea><p>Обратная сторона</p><textarea rows='8' cols='28'></textarea><div class='new save'>Сохранить</div>");
+    $(".popap").children().css("display","none").fadeIn();
+    $(".new").on('click', function() {
+        var a = $("textarea").eq(0).val(); b = $("textarea").eq(0).val();
+        currentArray.push([a,b,new Date()]);
+        cards[metka[0]] = currentArray;
+        localStorage.setItem('cards',JSON.stringify(cards));
+        $(".popap").children().fadeOut(400, saveEdit);
+    });
+    
+}
 function clickPopap() {
     if($(this).hasClass("flip")){return}
     $(this).addClass("flip");
@@ -131,15 +138,18 @@ function clickPopap() {
     });
 };
 function saveEdit() {
+        console.log(1);
         $(".popap").customScroll({horizontal: false});
         $(".popap .custom-scroll_inner").html("<ul></ul>");
         $(".popap ul").append("<li class='needEdit'>"+currentArray[0]+"</li>");
         for(i = 1; i < currentArray.length; i++) {
             $(".popap ul").append("<li class='needEdit'>"+currentArray[i][0]+"</li>");
         }
+        $(".popap ul").append("<li class='needEdit add'>+</li>");
         $(".popap").off();
         $(".popap .needEdit").on('click', function() {
             $(".popap").addClass("flip");
+            if($(this).text()=="+"){add();return;}
             var a = $(this).index();
             var g = currentArray[a][0]; h = currentArray[a][1];
             if(a==0){g = currentArray[0];h='';}
@@ -188,9 +198,8 @@ function init(){
                     localStorage.setItem('cards',JSON.stringify(cards));
                     $(".container").customScroll('destroy');
                     $(".container").children().remove();
-                    $(".container").customScroll({horizontal: false});
                     buildDecks();
-
+                    $(".container").customScroll({horizontal: false});
                 }
             }
         })
