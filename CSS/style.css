@@ -228,3 +228,18 @@ textarea {
 .plus img:hover {
     cursor: pointer;
 }
+@media screen and (max-device-width: 750px) {
+    html {
+        font-size: 80px;
+    }
+    .deck {
+        width: 80%;
+        font-size: 60px;
+    }
+    .popap {
+    font-size: 60px;
+    width: 80%;
+    height: 70%;
+}
+    
+}
