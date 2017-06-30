@@ -95,7 +95,7 @@ function saveNew() {
             $(".popap").off();
             $(".new").on('click', saveNew);
         }else{
-            var a = $("textarea").eq(0).val(); b = $("textarea").eq(0).val();
+            var a = $("textarea").eq(0).val(); b = $("textarea").eq(1).val();
             if(a == '' || a == ' '){
                 $(".new").on('click', saveNew);
                 return;
