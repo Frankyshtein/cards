@@ -3,7 +3,7 @@ cards = [["HTML теги",['div','Элемент div является униве
 if(localStorage.getItem('cards') == null) {
     dateSet();
     currentDate = new Date();
-    var a = JSON.stringify(cards);
+    let a = JSON.stringify(cards);
     localStorage.setItem('cards',a);
 } else {
     cards=JSON.parse(localStorage.getItem('cards'));
@@ -24,19 +24,11 @@ function buildDecks() {
     }
     currentDate = new Date();
     $(".ankiCards .custom-scroll_inner").append("<div class='deck plus'><img src='img/plus.png' alt=''></div>");
-//    $(".deck p").on('click', function() {
-//        $(".modal").fadeIn();
-//        var c = $(this).text();
-//        cardStart(c);
-//    })
-//    debugger;
-//    $(".ankiCards .custom-scroll_inner").customScroll({horizontal: false});
     init();
-    
 }
 function dateSet() {
     for(i = 0; i < cards.length; i++) {
-        var a = cards[i];
+        let a = cards[i];
         for(j = 1; j < a.length; j++) {
             var b = a[j];
             b[2] = new Date();
@@ -56,8 +48,8 @@ function cardStart(c) {
     }
 }
 function nextCard() {
-    for(j = 0; j < currentArray.length; j++){
-        var a = currentArray[j];
+    for(j = 1; j < currentArray.length; j++){
+        let a = currentArray[j];
         metka[1] = j;
         if(a[2] <= currentDate) {
             bufer[0] = a[0];
@@ -79,8 +71,9 @@ function nextOne() {
     });
     $(".popap").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function() {
         $(".popap").removeClass("flip");
+        $(".popap").unbind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd");
     })
-}
+};
 function saveNew() {
         if($(".popap p").text() == "Введите название колоды"){
            var a = $("textarea").val();
@@ -107,11 +100,9 @@ function saveNew() {
             $(".popap").children().css("display","none").fadeIn();
             $(".new").on('click', saveNew);
         }
-        
-        
-    }
+};
 function clickPopap() {
-    if($(this).hasClass("flip")){return}
+    if($(this).hasClass("flip")){return};
     $(this).addClass("flip");
     $(".popap").children().fadeOut(250,function(){
         $(".popap").children().remove();
@@ -121,8 +112,8 @@ function clickPopap() {
         $(".popapCont").customScroll({horizontal: false});
         $(".popap li").on('click', function(){
             $(".popap").removeClass("flip");
-            var a = cards[metka[0]], b = a[metka[1]];
-            b[2].setDate(b[2].getDate()+Number($(this).text()));
+            let a = cards[metka[0]], b = a[metka[1]];
+            b[2].setDate(currentDate.getDate()+Number($(this).text()));
             a[metka[1]] = b;
             cards[metka[0]] = a;
             localStorage.setItem('cards',JSON.stringify(cards));
@@ -164,13 +155,13 @@ function saveEdit() {
                 buildDecks();
                 $(".container").customScroll({horizontal: false});
             })
-        }) 
+        }); 
     })
 }
 function init(){
         $(".deck p").on('click', function() {
             $(".modal").fadeIn();
-            var c = $(this).text();
+            let c = $(this).text();
             cardStart(c);
         })
         $(".deck .edit").on('click', function() {
@@ -201,7 +192,7 @@ function init(){
             $(".new").on('click',saveNew)
         })
         $(".modal").on('click', function(e) {
-            var target = $(e.target);
+            let target = $(e.target);
             if(target.hasClass('modal') && !target.parents().hasClass('modal')){
                 $(".modal").fadeOut();
                 $(".popap").removeClass("flip");
