@@ -1,1 +1,0 @@
-<a href='https://frankyshtein.github.io/cards/'>Check this out! If you want to see how it's look like.</a>
